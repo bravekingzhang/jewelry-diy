@@ -134,7 +134,7 @@ const PLACEHOLDER_VALUES = new Set([
 ]);
 
 export function isShopifyAdminConfigured(): boolean {
-  const domain = process.env.SHOPIFY_DOMAIN ?? process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN ?? "";
+  const domain = process.env.SHOPIFY_DOMAIN ?? "";
   const token = process.env.SHOPIFY_ADMIN_TOKEN ?? "";
 
   if (!domain || !token) return false;

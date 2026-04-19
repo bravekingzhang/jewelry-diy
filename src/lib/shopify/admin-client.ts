@@ -8,11 +8,10 @@ interface ShopifyAdminResponse<T> {
   errors?: Array<{ message: string }>;
 }
 
-const SHOPIFY_API_VERSION = "2024-10";
+const SHOPIFY_API_VERSION = "2026-04";
 
 function getAdminConfig() {
-  const domain =
-    process.env.SHOPIFY_DOMAIN ?? process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN ?? "";
+  const domain = process.env.SHOPIFY_DOMAIN ?? "";
   const token = process.env.SHOPIFY_ADMIN_TOKEN ?? "";
 
   if (!domain || !token) {

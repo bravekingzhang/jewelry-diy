@@ -8,15 +8,11 @@ interface ShopifyResponse<T> {
   errors?: Array<{ message: string }>;
 }
 
-const SHOPIFY_API_VERSION = "2024-10";
+const SHOPIFY_API_VERSION = "2026-04";
 
 function getShopifyConfig() {
-  const domain =
-    process.env.SHOPIFY_DOMAIN ?? process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN ?? "";
-  const token =
-    process.env.SHOPIFY_STOREFRONT_TOKEN ??
-    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN ??
-    "";
+  const domain = process.env.SHOPIFY_DOMAIN ?? "";
+  const token = process.env.SHOPIFY_STOREFRONT_TOKEN ?? "";
 
   if (!domain || !token) {
     throw new Error("Missing Shopify domain or storefront token");
