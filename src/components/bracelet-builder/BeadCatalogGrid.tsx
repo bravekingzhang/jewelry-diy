@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { BeadIcon } from "@/components/bracelet-builder/BeadIcon";
 import type { BeadCategory, BeadOption } from "@/lib/shopify/types";
 
@@ -24,6 +25,9 @@ export function BeadCatalogGrid({
   onSelectOption,
   disabled,
 }: BeadCatalogGridProps) {
+  const t = useTranslations();
+  const tCategory = useTranslations("category");
+
   return (
     <section className="flex h-full min-h-[240px] gap-2 rounded-[20px] border border-[#E3E5EA] bg-[#F2F3F6] p-2">
       <aside className="w-[84px] shrink-0 overflow-y-auto rounded-[14px] border border-[#DEE2E9] bg-white py-1">
@@ -41,7 +45,7 @@ export function BeadCatalogGrid({
                   : "border-l-transparent text-[#6A7280] hover:bg-[#F7F8FA]"
               }`}
             >
-              {category}
+              {tCategory(category)}
             </button>
           );
         })}
@@ -52,7 +56,7 @@ export function BeadCatalogGrid({
           <input
             value={searchKeyword}
             onChange={(event) => onSearchKeywordChange(event.target.value)}
-            placeholder="白水晶 / 玛瑙 / 8mm"
+            placeholder={t("catalog.searchPlaceholder")}
             className="w-full bg-transparent text-[13px] text-[#4A5260] outline-none placeholder:text-[#A0A7B4]"
           />
         </div>
@@ -60,7 +64,7 @@ export function BeadCatalogGrid({
         <div className="min-h-0 flex-1 overflow-y-auto pr-0.5">
           {options.length === 0 ? (
             <div className="rounded-xl bg-white px-3 py-6 text-center text-[12px] text-[#8D94A0]">
-              暂无匹配珠子
+              {t("catalog.noMatches")}
             </div>
           ) : (
             <div className="grid grid-cols-3 gap-1.5">

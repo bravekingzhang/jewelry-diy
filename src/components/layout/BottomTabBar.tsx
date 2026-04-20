@@ -1,30 +1,32 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 
 const tabs = [
-  { label: "首页", href: "/", icon: "⌂" },
-  { label: "好物", href: "/products", icon: "◌" },
-  { label: "DIY", href: "/builder", icon: "⬟" },
-  { label: "购物车", href: "/builder?panel=checkout", icon: "◧" },
-  { label: "我的", href: "/profile", icon: "◔" },
-];
+  { key: "home", href: "/", icon: "⌂" },
+  { key: "products", href: "/products", icon: "◌" },
+  { key: "diy", href: "/builder", icon: "⬟" },
+  { key: "cart", href: "/builder?panel=checkout", icon: "◧" },
+  { key: "profile", href: "/profile", icon: "◔" },
+] as const;
 
 export function BottomTabBar() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-[#DADDE4] bg-[#F8F9FB]/95 px-2 pb-[max(env(safe-area-inset-bottom),8px)] pt-1.5 backdrop-blur">
       <ul className="mx-auto grid w-full max-w-[460px] grid-cols-5 gap-1">
         {tabs.map((tab) => {
+          const basePath = tab.href.split("?")[0];
           const isActive =
-            tab.href === "/"
+            basePath === "/"
               ? pathname === "/"
-              : pathname.startsWith(tab.href.split("?")[0]);
+              : pathname.startsWith(basePath);
 
           return (
-            <li key={tab.label}>
+            <li key={tab.key}>
               <Link
                 href={tab.href}
                 className={`flex flex-col items-center justify-center rounded-xl py-0.5 text-[12px] transition active:scale-95 ${
@@ -41,7 +43,7 @@ export function BottomTabBar() {
                 >
                   {tab.icon}
                 </span>
-                <span className="leading-none">{tab.label}</span>
+                <span className="leading-none">{t(tab.key)}</span>
               </Link>
             </li>
           );

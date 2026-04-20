@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { SelectedBead } from "@/lib/shopify/types";
 import { getBraceletPositions, getEmptySlots } from "@/lib/utils/bracelet";
 import { formatCny } from "@/lib/utils/price";
@@ -23,6 +24,7 @@ export function BraceletCanvas({
   onRemove,
   onMoveTo,
 }: BraceletCanvasProps) {
+  const t = useTranslations("builder.canvas");
   const cx = 160;
   const cy = 160;
   const radius = 102;
@@ -187,7 +189,7 @@ export function BraceletCanvas({
         viewBox="0 0 320 320"
         className="mx-auto w-full max-w-[320px] touch-none select-none"
         role="img"
-        aria-label={`手串预览，已选 ${beads.length}/${maxBeads} 颗，长按拖拽排序，拖出圈外可删除`}
+        aria-label={t("previewAria", { count: beads.length, max: maxBeads })}
         onPointerMove={(event) => handlePointerMove(event.clientX, event.clientY)}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerCancel}
@@ -236,7 +238,7 @@ export function BraceletCanvas({
             textAnchor="middle"
             className="fill-[#E53E3E] text-[11px] font-semibold"
           >
-            松手删除
+            {t("releaseToRemove")}
           </text>
         )}
 
@@ -276,7 +278,7 @@ export function BraceletCanvas({
                 transition: isDragging ? "none" : "transform 0.25s ease",
               }}
               role="button"
-              aria-label={`珠子 ${bead.name} ${bead.sizeMm}mm`}
+              aria-label={t("beadAria", { name: bead.name, size: bead.sizeMm })}
               onPointerDown={(event) => {
                 event.preventDefault();
                 handlePointerDown(index, event.clientX, event.clientY);
@@ -364,7 +366,7 @@ export function BraceletCanvas({
               textAnchor="middle"
               className="fill-[#B0B6C2] text-[14px] font-medium"
             >
-              添加珠子
+              {t("addBeads")}
             </text>
             <text
               x={cx}
@@ -372,7 +374,7 @@ export function BraceletCanvas({
               textAnchor="middle"
               className="fill-[#C5CAD4] text-[11px]"
             >
-              开始设计你的手串
+              {t("startDesign")}
             </text>
           </>
         ) : (
@@ -383,7 +385,7 @@ export function BraceletCanvas({
               textAnchor="middle"
               className="fill-[#8B92A0] text-[12px]"
             >
-              {beads.length}/{maxBeads} 颗
+              {t("countUnit", { count: beads.length, max: maxBeads })}
             </text>
             <text
               x={cx}

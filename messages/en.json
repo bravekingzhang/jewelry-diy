@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "title": "Jewelry DIY",
+    "description": "Custom bracelet and jewelry DIY platform"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Picks",
+    "diy": "DIY",
+    "cart": "Cart",
+    "profile": "Me"
+  },
+  "home": {
+    "eyebrow": "JEWELRY STUDIO",
+    "title": "Jewelry DIY",
+    "tagline": "From inspiration to finished piece — craft the bracelet that's truly yours.",
+    "designLabel": "DIY-CUSTOM",
+    "designLineA": "Design",
+    "designLineB": "Bracelet",
+    "designEnter": "Open editor →",
+    "pickLabel": "MUST-HAVE",
+    "pickLineA": "Curated",
+    "pickLineB": "Selection",
+    "pickEnter": "Browse bead library →",
+    "plazaTitle": "Design Gallery",
+    "plazaSubtitle": "Inspiration from other designers",
+    "moreLink": "More",
+    "customizeThis": "Customize this design →",
+    "inspiration": {
+      "bodhiCake": {
+        "name": "Bodhi Cake",
+        "desc": "Warm wood tones with golden brown and jujube red — vintage yet vibrant."
+      },
+      "greenDragon": {
+        "name": "Green Dragon Gaze",
+        "desc": "Dark tones accented with Chinese red — steady and commanding."
+      },
+      "halfHeart": {
+        "name": "Half Heart",
+        "desc": "Warm gold meets wine red — sweet with a touch of personality."
+      }
+    }
+  },
+  "builder": {
+    "back": "Back",
+    "title": "Jewelry DIY",
+    "instructions": "Guide",
+    "fitPerfect": "Good fit",
+    "fitTight": "Snug",
+    "fitTooSmall": "Too small",
+    "totalPrice": "Total: {price}",
+    "hint": "Long-press to drag out to remove · drag to reorder · selected {count}/{max}",
+    "clear": "Clear",
+    "clearAriaLabel": "Clear design",
+    "save": "Save",
+    "checkoutAriaLabel": "Complete design and checkout",
+    "redirecting": "Redirecting...",
+    "completeCheckout": "Complete {price}",
+    "share": {
+      "restored": "Design restored from share link",
+      "addBeadsFirst": "Add beads first, then save",
+      "linkCopied": "Design link copied",
+      "savedToUrl": "Design saved to current URL"
+    },
+    "canvas": {
+      "previewAria": "Bracelet preview, {count} of {max} selected, long-press to drag and reorder, drag out to remove",
+      "releaseToRemove": "Release to remove",
+      "beadAria": "Bead {name} {size}mm",
+      "addBeads": "Add beads",
+      "startDesign": "Start designing your bracelet",
+      "countUnit": "{count}/{max}"
+    }
+  },
+  "catalog": {
+    "searchPlaceholder": "Clear quartz / Agate / 8mm",
+    "noMatches": "No matching beads"
+  },
+  "category": {
+    "全部": "All",
+    "白水晶": "Clear Quartz",
+    "紫水晶": "Amethyst",
+    "黄水晶": "Citrine",
+    "粉水晶": "Rose Quartz",
+    "黑曜石": "Obsidian",
+    "其他": "Other"
+  },
+  "handSize": {
+    "14cm": "Wrist 14cm",
+    "15cm": "Wrist 15cm",
+    "16cm": "Wrist 16cm",
+    "17cm": "Wrist 17cm"
+  },
+  "products": {
+    "title": "Bead Library",
+    "count": "{count} types",
+    "tapForDetails": "Tap for details",
+    "selectSize": "Select size",
+    "addToBracelet": "Add to bracelet",
+    "close": "Close"
+  },
+  "profile": {
+    "eyebrow": "PROFILE",
+    "defaultName": "Jewelry DIY member",
+    "subtitle": "@jewelrylover · 18-day streak",
+    "edit": "Edit",
+    "nicknameUpdated": "Nickname updated",
+    "stats": {
+      "totalOrders": "Total spent",
+      "designsCompleted": "Designs completed",
+      "memberTier": "Member tier"
+    },
+    "quickAccess": "Quick access",
+    "accountSettings": "Account settings",
+    "viewArrow": "View →",
+    "quickActions": {
+      "orders": {
+        "title": "My Orders",
+        "subtitle": "Payment and delivery status"
+      },
+      "designs": {
+        "title": "My Designs",
+        "subtitle": "Saved DIY concepts"
+      },
+      "favorites": {
+        "title": "Favorites",
+        "subtitle": "Beads and combinations you follow"
+      }
+    },
+    "settings": {
+      "address": {
+        "label": "Addresses",
+        "desc": "Default shipping address and contact"
+      },
+      "payment": {
+        "label": "Payment methods",
+        "desc": "WeChat Pay / Alipay / Cards"
+      },
+      "notification": {
+        "label": "Notifications",
+        "desc": "Order reminders and promotions",
+        "on": "on",
+        "off": "off"
+      },
+      "support": {
+        "label": "Support & Help",
+        "desc": "After-sales, care, FAQ"
+      },
+      "language": {
+        "label": "Language",
+        "desc": "Interface language"
+      }
+    },
+    "toast": {
+      "addressComingSoon": "Address management coming soon",
+      "paymentInfo": "Payment methods are available at Shopify checkout",
+      "notificationsOn": "Notifications enabled",
+      "notificationsOff": "Notifications disabled",
+      "supportContact": "For help, contact WeChat: jewelry_support"
+    }
+  },
+  "cart": {
+    "empty": "Cart is empty. Cannot check out.",
+    "failed": "Failed to create Shopify cart"
+  },
+  "language": {
+    "en": "English",
+    "zh": "中文"
+  }
+}

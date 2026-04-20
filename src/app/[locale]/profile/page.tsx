@@ -1,21 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 
 const quickActions = [
-  { title: "我的订单", subtitle: "查看支付与物流进度", value: "12", icon: "◫", href: "/profile/orders" },
-  { title: "我的设计", subtitle: "保存的 DIY 方案", value: "8", icon: "⬡", href: "/builder" },
-  { title: "收藏好物", subtitle: "你关注的珠子与搭配", value: "24", icon: "◎", href: "/products" },
-];
+  { key: "orders", value: "12", icon: "◫", href: "/profile" },
+  { key: "designs", value: "8", icon: "⬡", href: "/builder" },
+  { key: "favorites", value: "24", icon: "◎", href: "/products" },
+] as const;
 
-const settingItems = [
-  { label: "地址管理", desc: "默认收货地址与联系人", action: "address" },
-  { label: "支付方式", desc: "微信 / 支付宝 / 银行卡", action: "payment" },
-  { label: "消息通知", desc: "订单提醒与活动通知", action: "notification" },
-  { label: "客服与帮助", desc: "售后、保养、常见问题", action: "support" },
-];
+type SettingKey = "address" | "payment" | "notification" | "support";
+const settingItems: SettingKey[] = ["address", "payment", "notification", "support"];
 
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   return (
@@ -32,9 +30,10 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
 }
 
 export default function ProfilePage() {
+  const t = useTranslations("profile");
   const [toast, setToast] = useState<string | null>(null);
   const [editingName, setEditingName] = useState(false);
-  const [userName, setUserName] = useState("珠宝定制会员");
+  const [userName, setUserName] = useState(t("defaultName"));
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   function showToast(message: string) {
@@ -42,20 +41,20 @@ export default function ProfilePage() {
     setTimeout(() => setToast(null), 2000);
   }
 
-  function handleSettingAction(action: string) {
+  function handleSettingAction(action: SettingKey) {
     switch (action) {
       case "address":
-        showToast("地址管理功能即将上线，敬请期待");
+        showToast(t("toast.addressComingSoon"));
         break;
       case "payment":
-        showToast("结账时可通过 Shopify 选择支付方式");
+        showToast(t("toast.paymentInfo"));
         break;
       case "notification":
         setNotificationsEnabled((prev) => !prev);
-        showToast(notificationsEnabled ? "已关闭消息通知" : "已开启消息通知");
+        showToast(notificationsEnabled ? t("toast.notificationsOff") : t("toast.notificationsOn"));
         break;
       case "support":
-        showToast("如需帮助请联系客服微信: jewelry_support");
+        showToast(t("toast.supportContact"));
         break;
     }
   }
@@ -71,12 +70,12 @@ export default function ProfilePage() {
           <div className="flex items-center gap-3">
             <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-[#F8D7DE] via-[#EFD7DA] to-[#DDDCE7] p-[2px]">
               <div className="flex h-full w-full items-center justify-center rounded-full bg-white text-[20px] text-[#8D3942]">
-                珠
+                ✦
               </div>
             </div>
 
             <div className="flex-1">
-              <p className="text-[12px] tracking-[0.18em] text-[#8C93A1]">PROFILE</p>
+              <p className="text-[12px] tracking-[0.18em] text-[#8C93A1]">{t("eyebrow")}</p>
               {editingName ? (
                 <input
                   autoFocus
@@ -84,12 +83,12 @@ export default function ProfilePage() {
                   onChange={(e) => setUserName(e.target.value)}
                   onBlur={() => {
                     setEditingName(false);
-                    showToast("昵称已更新");
+                    showToast(t("nicknameUpdated"));
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       setEditingName(false);
-                      showToast("昵称已更新");
+                      showToast(t("nicknameUpdated"));
                     }
                   }}
                   className="w-full border-b-2 border-[#1F6B72] bg-transparent text-[24px] leading-none tracking-[0.03em] text-[#1E2430] outline-none [font-family:var(--font-display)]"
@@ -99,7 +98,7 @@ export default function ProfilePage() {
                   {userName}
                 </h1>
               )}
-              <p className="mt-1 text-[13px] text-[#6E7684]">@jewelrylover · 已连续打卡 18 天</p>
+              <p className="mt-1 text-[13px] text-[#6E7684]">{t("subtitle")}</p>
             </div>
 
             <button
@@ -107,15 +106,15 @@ export default function ProfilePage() {
               onClick={() => setEditingName(true)}
               className="rounded-full border border-[#DBDFE7] bg-[#F7F8FA] px-3 py-1.5 text-[13px] text-[#596170] transition active:scale-95 hover:bg-[#ECEDF0]"
             >
-              编辑
+              {t("edit")}
             </button>
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2">
             {[
-              { label: "累计订单", value: "¥ 8,640" },
-              { label: "已完成设计", value: "31" },
-              { label: "会员等级", value: "Silver" },
+              { label: t("stats.totalOrders"), value: "¥ 8,640" },
+              { label: t("stats.designsCompleted"), value: "31" },
+              { label: t("stats.memberTier"), value: "Silver" },
             ].map((item) => (
               <div key={item.label} className="rounded-2xl border border-[#E6EAF1] bg-[#F8F9FB] px-2 py-3 text-center">
                 <p className="text-[12px] text-[#7B8391]">{item.label}</p>
@@ -126,11 +125,11 @@ export default function ProfilePage() {
         </header>
 
         <section className="mb-4 rounded-[22px] border border-[#E3E7EE] bg-[#F6F7FA] p-3">
-          <h2 className="mb-2 px-1 text-[20px] font-semibold text-[#232935]">快捷入口</h2>
+          <h2 className="mb-2 px-1 text-[20px] font-semibold text-[#232935]">{t("quickAccess")}</h2>
           <div className="space-y-2">
             {quickActions.map((action) => (
               <Link
-                key={action.title}
+                key={action.key}
                 href={action.href}
                 className="flex w-full items-center justify-between rounded-[16px] border border-[#E4E8EF] bg-white px-3 py-3 text-left transition active:scale-[0.98] hover:-translate-y-[1px] hover:shadow-[0_10px_20px_rgba(37,44,59,0.08)]"
               >
@@ -138,12 +137,12 @@ export default function ProfilePage() {
                   {action.icon}
                 </div>
                 <div className="flex-1">
-                  <p className="text-[16px] font-semibold text-[#242A36]">{action.title}</p>
-                  <p className="text-[12px] text-[#808896]">{action.subtitle}</p>
+                  <p className="text-[16px] font-semibold text-[#242A36]">{t(`quickActions.${action.key}.title`)}</p>
+                  <p className="text-[12px] text-[#808896]">{t(`quickActions.${action.key}.subtitle`)}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-[18px] font-semibold text-[#1F2633]">{action.value}</p>
-                  <p className="text-[12px] text-[#8A92A0]">查看 →</p>
+                  <p className="text-[12px] text-[#8A92A0]">{t("viewArrow")}</p>
                 </div>
               </Link>
             ))}
@@ -151,24 +150,32 @@ export default function ProfilePage() {
         </section>
 
         <section className="rounded-[22px] border border-[#E3E7EE] bg-[#F6F7FA] p-3">
-          <h2 className="mb-2 px-1 text-[20px] font-semibold text-[#232935]">账户设置</h2>
+          <h2 className="mb-2 px-1 text-[20px] font-semibold text-[#232935]">{t("accountSettings")}</h2>
           <div className="space-y-2">
-            {settingItems.map((item) => (
+            <div className="flex w-full items-center justify-between rounded-[16px] border border-[#E4E8EF] bg-white px-3 py-3">
+              <div>
+                <p className="text-[16px] font-semibold text-[#242A36]">{t("settings.language.label")}</p>
+                <p className="text-[12px] text-[#808896]">{t("settings.language.desc")}</p>
+              </div>
+              <LanguageSwitcher />
+            </div>
+
+            {settingItems.map((key) => (
               <button
-                key={item.label}
+                key={key}
                 type="button"
-                onClick={() => handleSettingAction(item.action)}
+                onClick={() => handleSettingAction(key)}
                 className="flex w-full items-center justify-between rounded-[16px] border border-[#E4E8EF] bg-white px-3 py-3 text-left transition active:scale-[0.98] hover:bg-[#FCFCFD]"
               >
                 <div>
-                  <p className="text-[16px] font-semibold text-[#242A36]">{item.label}</p>
+                  <p className="text-[16px] font-semibold text-[#242A36]">{t(`settings.${key}.label`)}</p>
                   <p className="text-[12px] text-[#808896]">
-                    {item.action === "notification"
-                      ? `${item.desc} · ${notificationsEnabled ? "已开启" : "已关闭"}`
-                      : item.desc}
+                    {key === "notification"
+                      ? `${t(`settings.${key}.desc`)} · ${notificationsEnabled ? t("settings.notification.on") : t("settings.notification.off")}`
+                      : t(`settings.${key}.desc`)}
                   </p>
                 </div>
-                {item.action === "notification" ? (
+                {key === "notification" ? (
                   <div
                     className={`h-6 w-10 rounded-full p-0.5 transition ${
                       notificationsEnabled ? "bg-[#1F6B72]" : "bg-[#D1D5DB]"

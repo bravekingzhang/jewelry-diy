@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { CartAttribute, CartLineInput } from "@/lib/shopify/types";
 
 interface CheckoutPayload {
@@ -9,6 +10,7 @@ interface CheckoutPayload {
 }
 
 export function useShopifyCart() {
+  const t = useTranslations("cart");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,13 +30,13 @@ export function useShopifyCart() {
       const data = (await response.json()) as { checkoutUrl?: string; error?: string };
 
       if (!response.ok || !data.checkoutUrl) {
-        throw new Error(data.error ?? "创建购物车失败，请稍后再试");
+        throw new Error(data.error ?? t("failed"));
       }
 
       window.location.href = data.checkoutUrl;
     } catch (caughtError) {
       const message =
-        caughtError instanceof Error ? caughtError.message : "请求失败，请检查网络后重试";
+        caughtError instanceof Error ? caughtError.message : t("failed");
       setError(message);
     } finally {
       setIsLoading(false);

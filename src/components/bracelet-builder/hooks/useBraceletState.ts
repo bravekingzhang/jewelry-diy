@@ -11,10 +11,10 @@ import type {
 } from "@/lib/shopify/types";
 
 const HAND_SIZE_PRESETS = [
-  { label: "手围 14cm", maxBeads: 16 },
-  { label: "手围 15cm", maxBeads: 17 },
-  { label: "手围 16cm", maxBeads: 18 },
-  { label: "手围 17cm", maxBeads: 20 },
+  { key: "14cm", maxBeads: 16 },
+  { key: "15cm", maxBeads: 17 },
+  { key: "16cm", maxBeads: 18 },
+  { key: "17cm", maxBeads: 20 },
 ] as const;
 
 export type HandSizePreset = (typeof HAND_SIZE_PRESETS)[number];
@@ -164,7 +164,7 @@ export function useBraceletState(beads: Bead[]) {
     return [
       { key: "bead_sequence", value: beadSequence || "" },
       { key: "bead_count", value: String(selectedBeads.length) },
-      { key: "bracelet_size", value: handSize.label },
+      { key: "bracelet_size", value: handSize.key },
       { key: "design_total", value: totalPrice.toFixed(2) },
     ];
   }

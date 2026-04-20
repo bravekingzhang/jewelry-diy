@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { BeadCatalogGrid } from "@/components/bracelet-builder/BeadCatalogGrid";
 import { BraceletCanvas } from "@/components/bracelet-builder/BraceletCanvas";
 import { useBraceletState } from "@/components/bracelet-builder/hooks/useBraceletState";
@@ -16,6 +17,8 @@ interface BraceletBuilderProps {
 
 export function BraceletBuilder({ beads }: BraceletBuilderProps) {
   const router = useRouter();
+  const t = useTranslations("builder");
+  const tHand = useTranslations("handSize");
   const {
     handSize,
     handSizePresets,
@@ -44,10 +47,10 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
   const [panelOpen, setPanelOpen] = useState(false);
 
   const headerStatus = useMemo(() => {
-    if (selectedBeads.length < maxBeads - 2) return "手围 适中";
-    if (selectedBeads.length < maxBeads) return "手围 偏紧";
-    return "手围 过小";
-  }, [maxBeads, selectedBeads.length]);
+    if (selectedBeads.length < maxBeads - 2) return t("fitPerfect");
+    if (selectedBeads.length < maxBeads) return t("fitTight");
+    return t("fitTooSmall");
+  }, [maxBeads, selectedBeads.length, t]);
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -61,8 +64,8 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
       .filter(Boolean);
 
     importByVariantSequence(variantIds);
-    setShareNotice("已从分享链接恢复设计");
-  }, [importByVariantSequence]);
+    setShareNotice(t("share.restored"));
+  }, [importByVariantSequence, t]);
 
   async function handleCheckout() {
     if (selectedBeads.length === 0) return;
@@ -75,7 +78,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
 
   async function handleSaveDesign() {
     if (selectedBeads.length === 0) {
-      setShareNotice("先添加珠子再保存设计");
+      setShareNotice(t("share.addBeadsFirst"));
       return;
     }
 
@@ -91,13 +94,13 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(url.toString());
-        setShareNotice("设计链接已复制");
+        setShareNotice(t("share.linkCopied"));
         return;
       }
 
-      setShareNotice("设计已保存到当前链接");
+      setShareNotice(t("share.savedToUrl"));
     } catch {
-      setShareNotice("设计已保存到当前链接");
+      setShareNotice(t("share.savedToUrl"));
     }
   }
 
@@ -109,12 +112,12 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
             type="button"
             onClick={() => router.back()}
             className="rounded-full border border-[#D9DCE3] bg-white px-2.5 py-1.5 text-[18px] leading-none text-[#4E5563] transition active:scale-95 hover:bg-[#F0F1F4]"
-            aria-label="返回"
+            aria-label={t("back")}
           >
             ←
           </button>
           <h1 className="text-[28px] font-semibold tracking-[0.08em] text-[#1E222B] [font-family:var(--font-display)]">
-            珠宝定制
+            {t("title")}
           </h1>
           <div className="w-[42px]" aria-hidden />
         </div>
@@ -125,7 +128,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
           <div className="pointer-events-auto px-0.5 py-0.5">
             <div className="flex items-center gap-1.5 overflow-x-auto pr-1">
               <span className="shrink-0 rounded-full bg-[#D92D33] px-3 py-1 text-[12px] font-semibold text-white">
-                使用须知
+                {t("instructions")}
               </span>
               <button
                 type="button"
@@ -135,17 +138,17 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
                 {headerStatus}
               </button>
               <span className="shrink-0 rounded-full border border-[#D8DCE3] bg-white px-3 py-1 text-[12px] font-semibold text-[#6A707E]">
-                总价格: {formatCny(totalPrice)}
+                {t("totalPrice", { price: formatCny(totalPrice) })}
               </span>
             </div>
 
             {panelOpen ? (
               <div className="mt-1.5 flex flex-wrap gap-1.5">
                 {handSizePresets.map((preset) => {
-                  const active = preset.label === handSize.label;
+                  const active = preset.key === handSize.key;
                   return (
                     <button
-                      key={preset.label}
+                      key={preset.key}
                       type="button"
                       onClick={() => {
                         setHandSize(preset);
@@ -157,7 +160,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
                           : "border-[#D7DBE3] bg-white text-[#656D79]"
                       }`}
                     >
-                      {preset.label}
+                      {tHand(preset.key)}
                     </button>
                   );
                 })}
@@ -176,7 +179,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
           />
 
           <div className="mt-1.5 text-center text-[12px] text-[#7B8291]">
-            长按拖出手圈可删除 · 拖动可排序 · 已选 {selectedBeads.length}/{maxBeads}
+            {t("hint", { count: selectedBeads.length, max: maxBeads })}
           </div>
         </section>
 
@@ -200,9 +203,9 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
             type="button"
             onClick={clearDesign}
             className="rounded-[14px] border border-[#242A34] bg-white px-4 py-3 text-[14px] font-semibold leading-none text-[#262C37]"
-            aria-label="清空设计"
+            aria-label={t("clearAriaLabel")}
           >
-            清空
+            {t("clear")}
           </button>
 
           <button
@@ -210,7 +213,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
             onClick={handleSaveDesign}
             className="rounded-[14px] bg-[#DB2D33] px-5 py-3 text-[16px] font-semibold text-white shadow-[0_6px_12px_rgba(219,45,51,0.28)]"
           >
-            保存
+            {t("save")}
           </button>
 
           <button
@@ -218,7 +221,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
             onClick={handleCheckout}
             disabled={selectedBeads.length === 0 || isLoading}
             className="rounded-[14px] border border-[#313744] bg-white px-4 py-3 text-[20px] leading-none text-[#212733] disabled:cursor-not-allowed disabled:opacity-50"
-            aria-label="完成设计并结账"
+            aria-label={t("checkoutAriaLabel")}
           >
             ◧
           </button>
@@ -229,7 +232,7 @@ export function BraceletBuilder({ beads }: BraceletBuilderProps) {
             disabled={selectedBeads.length === 0 || isLoading}
             className="flex-1 rounded-[14px] border border-[#343A46] bg-white px-4 py-3 text-right text-[18px] font-semibold text-[#2B313D] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isLoading ? "正在跳转..." : `完成设计 ${formatCnyCompact(totalPrice)}`}
+            {isLoading ? t("redirecting") : t("completeCheckout", { price: formatCnyCompact(totalPrice) })}
           </button>
         </div>
 

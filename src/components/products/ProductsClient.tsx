@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
-import type { Bead, BeadVariant } from "@/lib/shopify/types";
+import type { Bead, BeadCategory, BeadVariant } from "@/lib/shopify/types";
 
 interface ProductsClientProps {
   beads: Bead[];
@@ -16,6 +17,8 @@ function BeadDetailSheet({
   bead: Bead;
   onClose: () => void;
 }) {
+  const t = useTranslations("products");
+  const tCategory = useTranslations("category");
   const [selectedVariant, setSelectedVariant] = useState<BeadVariant>(bead.variants[0]);
 
   return (
@@ -25,7 +28,6 @@ function BeadDetailSheet({
         className="relative w-full max-w-[470px] animate-[slideUp_0.3s_ease] rounded-t-[28px] border-t border-[#E3E5EA] bg-white px-5 pb-[max(env(safe-area-inset-bottom),20px)] pt-5"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Handle bar */}
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-[#D1D5DB]" />
 
         <div className="flex items-start gap-4">
@@ -37,16 +39,15 @@ function BeadDetailSheet({
           />
           <div className="min-w-0 flex-1">
             <h3 className="text-[22px] font-semibold text-[#1E2430]">{bead.name}</h3>
-            <p className="mt-0.5 text-[13px] text-[#7B8391]">{bead.category}</p>
+            <p className="mt-0.5 text-[13px] text-[#7B8391]">{tCategory(bead.category)}</p>
             <p className="mt-1 text-[18px] font-semibold text-[#D92D33]">
               ¥ {selectedVariant.price}
             </p>
           </div>
         </div>
 
-        {/* Variant selector */}
         <div className="mt-4">
-          <p className="mb-2 text-[13px] font-medium text-[#4A5260]">选择尺寸</p>
+          <p className="mb-2 text-[13px] font-medium text-[#4A5260]">{t("selectSize")}</p>
           <div className="flex flex-wrap gap-2">
             {bead.variants.map((variant) => {
               const active = variant.id === selectedVariant.id;
@@ -71,20 +72,22 @@ function BeadDetailSheet({
           </div>
         </div>
 
-        {/* Actions */}
         <div className="mt-5 flex gap-3">
           <Link
-            href={`/builder?addVariant=${encodeURIComponent(selectedVariant.id)}`}
+            href={{
+              pathname: "/builder",
+              query: { addVariant: selectedVariant.id },
+            }}
             className="flex-1 rounded-xl bg-[#1F6B72] py-3.5 text-center text-[16px] font-semibold text-white shadow-[0_6px_12px_rgba(31,107,114,0.25)] transition active:scale-[0.98]"
           >
-            添加到手串
+            {t("addToBracelet")}
           </Link>
           <button
             type="button"
             onClick={onClose}
             className="rounded-xl border border-[#D9DCE3] bg-white px-5 py-3.5 text-[14px] text-[#596170] transition active:scale-[0.98]"
           >
-            关闭
+            {t("close")}
           </button>
         </div>
       </div>
@@ -93,10 +96,15 @@ function BeadDetailSheet({
 }
 
 export function ProductsClient({ beads }: ProductsClientProps) {
+  const t = useTranslations("products");
+  const tCategory = useTranslations("category");
   const [selectedBead, setSelectedBead] = useState<Bead | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("全部");
+  const [selectedCategory, setSelectedCategory] = useState<"全部" | BeadCategory>("全部");
 
-  const categories = ["全部", ...new Set(beads.map((b) => b.category))];
+  const categories: Array<"全部" | BeadCategory> = [
+    "全部",
+    ...(Array.from(new Set(beads.map((b) => b.category))) as BeadCategory[]),
+  ];
 
   const filtered =
     selectedCategory === "全部"
@@ -107,14 +115,13 @@ export function ProductsClient({ beads }: ProductsClientProps) {
     <main className="mx-auto min-h-dvh w-full max-w-[470px] bg-[#EFEFF2] px-4 pb-24 pt-5">
       <header className="mb-3 flex items-center justify-between">
         <h1 className="text-[30px] font-semibold tracking-[0.08em] [font-family:var(--font-display)]">
-          珠子库
+          {t("title")}
         </h1>
         <p className="rounded-full border border-[#D8DCE3] bg-[#F7F8FA] px-3 py-1 text-[13px] text-[#6A7280]">
-          共 {beads.length} 种
+          {t("count", { count: beads.length })}
         </p>
       </header>
 
-      {/* Category filter */}
       <div className="mb-4 flex gap-2 overflow-x-auto pb-1">
         {categories.map((cat) => (
           <button
@@ -127,7 +134,7 @@ export function ProductsClient({ beads }: ProductsClientProps) {
                 : "border-[#D9DCE3] bg-white text-[#596170]"
             }`}
           >
-            {cat}
+            {tCategory(cat)}
           </button>
         ))}
       </div>
@@ -160,7 +167,7 @@ export function ProductsClient({ beads }: ProductsClientProps) {
               <p className="text-[13px] text-[#6F7682]">
                 {variant.sizeMm}mm · <span className="font-medium text-[#D92D33]">¥{variant.price}</span>
               </p>
-              <p className="mt-1 text-[11px] text-[#9CA3AF]">点击查看详情</p>
+              <p className="mt-1 text-[11px] text-[#9CA3AF]">{t("tapForDetails")}</p>
             </article>
           )),
         )}

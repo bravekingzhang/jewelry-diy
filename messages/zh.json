@@ -1,0 +1,169 @@
+{
+  "meta": {
+    "title": "珠宝定制 · DIY 手串",
+    "description": "定制手串与珠宝 DIY 平台"
+  },
+  "nav": {
+    "home": "首页",
+    "products": "好物",
+    "diy": "DIY",
+    "cart": "购物车",
+    "profile": "我的"
+  },
+  "home": {
+    "eyebrow": "JEWELRY STUDIO",
+    "title": "珠宝定制",
+    "tagline": "从灵感到成品，定制一条真正属于你的手串。",
+    "designLabel": "DIY-CUSTOM",
+    "designLineA": "设计",
+    "designLineB": "手串",
+    "designEnter": "进入编辑器 →",
+    "pickLabel": "MUST-HAVE",
+    "pickLineA": "精选",
+    "pickLineB": "好物",
+    "pickEnter": "浏览珠子库 →",
+    "plazaTitle": "设计广场",
+    "plazaSubtitle": "看看别人搭配出来的成品灵感",
+    "moreLink": "更多",
+    "customizeThis": "去定制同款 →",
+    "inspiration": {
+      "bodhiCake": {
+        "name": "菩提蛋糕",
+        "desc": "温润木色搭配金棕与枣红，复古又不失活力。"
+      },
+      "greenDragon": {
+        "name": "怒目绿龙",
+        "desc": "暗色系主调点缀中国红，沉稳而霸气。"
+      },
+      "halfHeart": {
+        "name": "半点心",
+        "desc": "暖金与酒红相碰撞，甜美中带一点个性。"
+      }
+    }
+  },
+  "builder": {
+    "back": "返回",
+    "title": "珠宝定制",
+    "instructions": "使用须知",
+    "fitPerfect": "手围 适中",
+    "fitTight": "手围 偏紧",
+    "fitTooSmall": "手围 过小",
+    "totalPrice": "总价格: {price}",
+    "hint": "长按拖出手圈可删除 · 拖动可排序 · 已选 {count}/{max}",
+    "clear": "清空",
+    "clearAriaLabel": "清空设计",
+    "save": "保存",
+    "checkoutAriaLabel": "完成设计并结账",
+    "redirecting": "正在跳转...",
+    "completeCheckout": "完成设计 {price}",
+    "share": {
+      "restored": "已从分享链接恢复设计",
+      "addBeadsFirst": "先添加珠子再保存设计",
+      "linkCopied": "设计链接已复制",
+      "savedToUrl": "设计已保存到当前链接"
+    },
+    "canvas": {
+      "previewAria": "手串预览，已选 {count}/{max} 颗，长按拖拽排序，拖出圈外可删除",
+      "releaseToRemove": "松手删除",
+      "beadAria": "珠子 {name} {size}mm",
+      "addBeads": "添加珠子",
+      "startDesign": "开始设计你的手串",
+      "countUnit": "{count}/{max} 颗"
+    }
+  },
+  "catalog": {
+    "searchPlaceholder": "白水晶 / 玛瑙 / 8mm",
+    "noMatches": "暂无匹配珠子"
+  },
+  "category": {
+    "全部": "全部",
+    "白水晶": "白水晶",
+    "紫水晶": "紫水晶",
+    "黄水晶": "黄水晶",
+    "粉水晶": "粉水晶",
+    "黑曜石": "黑曜石",
+    "其他": "其他"
+  },
+  "handSize": {
+    "14cm": "手围 14cm",
+    "15cm": "手围 15cm",
+    "16cm": "手围 16cm",
+    "17cm": "手围 17cm"
+  },
+  "products": {
+    "title": "珠子库",
+    "count": "共 {count} 种",
+    "tapForDetails": "点击查看详情",
+    "selectSize": "选择尺寸",
+    "addToBracelet": "添加到手串",
+    "close": "关闭"
+  },
+  "profile": {
+    "eyebrow": "PROFILE",
+    "defaultName": "珠宝定制会员",
+    "subtitle": "@jewelrylover · 已连续打卡 18 天",
+    "edit": "编辑",
+    "nicknameUpdated": "昵称已更新",
+    "stats": {
+      "totalOrders": "累计订单",
+      "designsCompleted": "已完成设计",
+      "memberTier": "会员等级"
+    },
+    "quickAccess": "快捷入口",
+    "accountSettings": "账户设置",
+    "viewArrow": "查看 →",
+    "quickActions": {
+      "orders": {
+        "title": "我的订单",
+        "subtitle": "查看支付与物流进度"
+      },
+      "designs": {
+        "title": "我的设计",
+        "subtitle": "保存的 DIY 方案"
+      },
+      "favorites": {
+        "title": "收藏好物",
+        "subtitle": "你关注的珠子与搭配"
+      }
+    },
+    "settings": {
+      "address": {
+        "label": "地址管理",
+        "desc": "默认收货地址与联系人"
+      },
+      "payment": {
+        "label": "支付方式",
+        "desc": "微信 / 支付宝 / 银行卡"
+      },
+      "notification": {
+        "label": "消息通知",
+        "desc": "订单提醒与活动通知",
+        "on": "已开启",
+        "off": "已关闭"
+      },
+      "support": {
+        "label": "客服与帮助",
+        "desc": "售后、保养、常见问题"
+      },
+      "language": {
+        "label": "语言",
+        "desc": "界面语言"
+      }
+    },
+    "toast": {
+      "addressComingSoon": "地址管理功能即将上线，敬请期待",
+      "paymentInfo": "结账时可通过 Shopify 选择支付方式",
+      "notificationsOn": "已开启消息通知",
+      "notificationsOff": "已关闭消息通知",
+      "supportContact": "如需帮助请联系客服微信: jewelry_support"
+    }
+  },
+  "cart": {
+    "empty": "购物车为空，无法结账",
+    "failed": "创建 Shopify 购物车失败"
+  },
+  "language": {
+    "en": "English",
+    "zh": "中文"
+  }
+}
